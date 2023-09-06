@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 import os
 
@@ -26,7 +27,8 @@ MY_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    'rest_framework'
+    'rest_framework',
+    'rest_framework_simplejwt'
 ]
 
 INSTALLED_APPS = [
@@ -69,7 +71,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "e_commerce.wsgi.application"
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+        )
+}
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
